@@ -6,7 +6,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 
 # set up the OpenAI API key
-openai.api_key = os.environ["OPENAI_API_KEY"]
+openai.api_key = os.environ["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"]
 
 # set up the Line Bot API and WebhookHandler
 app = Flask(__name__)
