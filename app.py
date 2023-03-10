@@ -2,7 +2,7 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
-import openai
+#import openai
 import os
 
 app = Flask(__name__)
@@ -23,10 +23,13 @@ def callback():
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
-
+if event.source.user_id != "Udeadbeefdeadbeefdeadbeefdeadbeef":
+    pretty_note = '♫♪♬'
+    pretty_text = ''
+    for i in event.message.text:
+        pretty_text += i
+        pretty_text += random.choice(pretty_note)
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=pretty_text))
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
