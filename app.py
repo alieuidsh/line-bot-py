@@ -25,7 +25,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message_text = AliGPT.CH_GPT(event.message.text)
+    #message_text = AliGPT.CH_GPT(event.message.text)
     #message_text = " (我是AI胖胖)"
     message_text = " (我是AI胖胖)"
     message = TextSendMessage(text=message_text)
