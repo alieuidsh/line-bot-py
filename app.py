@@ -3,7 +3,7 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
-from AliGPT import CH_GPT
+#from AliGPT import CH_GPT
 import os
 
 app = Flask(__name__)
