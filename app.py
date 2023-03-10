@@ -3,7 +3,7 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
-#from AliGPT import CH_GPT
+from AliGPT import CH_GPT
 import os
 
 app = Flask(__name__)
@@ -25,9 +25,9 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    #message_text = AliGPT.CH_GPT(event.message.text)
+    message_text = AliGPT.CH_GPT(event.message.text)
     #message_text = " (我是AI胖胖)"
-    message_text = " 我是AI胖胖"
+    #message_text = " 我是AI胖胖"
     message = TextSendMessage(text=message_text)
     line_bot_api.reply_message(event.reply_token, message)
 
