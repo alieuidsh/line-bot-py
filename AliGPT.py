@@ -5,10 +5,10 @@ class AliGPT:
     
     def CH_GPT(test):
         
-        sam = str(test)
+        sam_text = test
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt = sam ,
+            prompt = sam_text ,
             max_tokens=1024,
             temperature=0.5,
             )
@@ -16,4 +16,3 @@ class AliGPT:
         completed_text = response["choices"][0]["text"]
         return completed_text
 
-    
