@@ -1,22 +1,30 @@
 import openai
-import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
+import os
 
-# set up the OpenAI API key
-openai.api_key = os.environ["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"]
-
-# set up the Line Bot API and WebhookHandler
 app = Flask(__name__)
+
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
-# handle incoming messages
+openai.api_key = os.environ["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"]
+
+@app.route("/callback", methods=['POST'])
+def callback():
+    signature = request.headers['X-Line-Signature']
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+    return 'OK'
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # get user input message
     user_input = event.message.text
     
     # set up the OpenAI prompt with user input
@@ -38,8 +46,9 @@ def handle_message(event):
     # send the AI response back to the user
     message = TextSendMessage(text=ai_response)
     line_bot_api.reply_message(event.reply_token, message)
+    
 
-# set up the Flask app to handle incoming requests
+import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
