@@ -8,6 +8,7 @@ import os
 
 app = Flask(__name__)
 
+openai.api_key = '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'
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
